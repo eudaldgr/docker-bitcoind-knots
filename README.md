@@ -56,17 +56,18 @@ docker run --name bitcoind -v $HOME/.bitcoin:/data/.bitcoin \
 Or just use the container like a bitcoind binary:
 
 ```
-$ docker run eudaldgr/docker-bitcoind-knots:v29.2 -version
-Bitcoin Core daemon version v29.2.0
+$ docker run -v $HOME/.bitcoin:/data/.bitcoin eudaldgr/docker-bitcoind-knots:v29.2 -version
+Bitcoin Knots daemon version v29.2.knots20251010
+Copyright (C) 2009-2025 The Bitcoin Knots developers
 Copyright (C) 2009-2025 The Bitcoin Core developers
 
-Please contribute if you find Bitcoin Core useful. Visit
-<https://bitcoincore.org/> for further information about the software.
-The source code is available from <https://github.com/bitcoin/bitcoin>.
+Please contribute if you find Bitcoin Knots useful. Visit
+<https://bitcoinknots.org/> for further information about the software.
+The source code is available from <https://github.com/bitcoinknots/bitcoin>.
 
 This is experimental software.
 Distributed under the MIT software license, see the accompanying file COPYING
-or <https://opensource.org/license/MIT>
+or <https://opensource.org/licenses/MIT>
 ```
 
 ### Versions
