@@ -94,4 +94,4 @@ The Dockerfile supports `linux/amd64` and `linux/arm64` architectures only.
 
 ## License
 
-MIT © e17n https://github.com/eudaldgr
+MIT © eudaldgr https://eudald.gr
