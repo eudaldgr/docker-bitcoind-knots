@@ -100,7 +100,7 @@ RUN chown -R ${APP_UID}:${APP_GID} /runtime/data
 
 # Final scratch image
 FROM scratch
-LABEL org.opencontainers.image.authors="e17n <https://github.com/eudaldgr>"
+LABEL org.opencontainers.image.authors="eudaldgr <https://eudald.gr>"
 
 ARG APP_UID=1000
 ARG APP_GID=1000
