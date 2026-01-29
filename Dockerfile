@@ -106,7 +106,17 @@ COPY --from=builder /runtime/ /
 ENV HOME=/data
 VOLUME /data/.bitcoin
 
-EXPOSE 8332 8333 18332 18333 18443 18444
+# 8332  Mainnet RPC
+# 8333  Mainnet P2P
+# 18332 Testnet3 RPC
+# 18333 Testnet3 P2P
+# 48332 Testnet4 P2P
+# 48333 Testnet4 RPC
+# 38332 Signet RPC
+# 38333 Signet P2P
+# 18443 Regtest RPC
+# 18444 Regtest P2P
+EXPOSE 8332 8333 18332 18333 48332 48333 38332 38333 18443 18444
 
 USER ${APP_UID}:${APP_GID} 
 ENTRYPOINT ["/bin/bitcoind"]
