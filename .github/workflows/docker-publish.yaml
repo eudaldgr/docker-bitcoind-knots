@@ -14,10 +14,11 @@ jobs:
     steps:
       - name: Set VERSION and TAG
         run: |
-          TAG="${GITHUB_REF#refs/*/}"
-          VERSION="${TAG#v}"
-          VERSION="${VERSION%%-*}" # Remove -metadata (p.ex. v30.0-1 → 30.0)
-          MAJOR="${VERSION%%.*}"
+          TAG="${GITHUB_REF#refs/*/}" # ex.: v29.2.knots20251110-1
+          VERSION="${TAG#v}"          # Remove leading 'v' (ex.: 29.2.knots20251110-1)
+          VERSION="${VERSION%%-*}"    # Remove -metadata (p.ex. 29.2.knots20251110)
+          VERSION="${VERSION%.*}"     # Remove trailing .knotsDATE (ex.: 29.2)
+          MAJOR="${VERSION%%.*}"      # Extract major version (ex.: 29)
 
           echo "TAG=${TAG}" >> $GITHUB_ENV
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
@@ -37,7 +38,7 @@ jobs:
             --platform linux/amd64,linux/arm64 \
             --build-arg VERSION=${{ env.VERSION }} \
             --tag ghcr.io/${{ github.repository }}:${{ env.TAG }} \
-            --tag ghcr.io/${{ github.repository }}:${{ env.VERSION }} \
+            --tag ghcr.io/${{ github.repository }}:v${{ env.VERSION }} \
             --tag ghcr.io/${{ github.repository }}:v${{ env.MAJOR }} \
             --tag ghcr.io/${{ github.repository }}:latest \
             --push .
