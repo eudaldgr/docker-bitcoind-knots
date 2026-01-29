@@ -24,14 +24,9 @@ RUN apk add --no-cache --virtual .build-deps \
   gnupg wget tar jq curl
 
 RUN echo "Downloading release assets"
-RUN echo $(wget -qO- "https://bitcoinknots.org/files/${VERSION%.*}.x/" | \
-  grep -oE "${VERSION}\.knots[0-9]{8}" | \
-  sort -u | \
-  tail -n1 | \
-  sed 's/.*knots//') > /knots_date
-RUN wget https://bitcoinknots.org/files/${VERSION%.*}.x/${VERSION}.knots$(cat /knots_date)/bitcoin-${VERSION}.knots$(cat /knots_date).tar.gz
-RUN wget https://bitcoinknots.org/files/${VERSION%.*}.x/${VERSION}.knots$(cat /knots_date)/SHA256SUMS.asc
-RUN wget https://bitcoinknots.org/files/${VERSION%.*}.x/${VERSION}.knots$(cat /knots_date)/SHA256SUMS
+RUN wget https://bitcoinknots.org/files/${VERSION%%.*}.x/${VERSION}/bitcoin-${VERSION}.tar.gz
+RUN wget https://bitcoinknots.org/files/${VERSION%%.*}.x/${VERSION}/SHA256SUMS.asc
+RUN wget https://bitcoinknots.org/files/${VERSION%%.*}.x/${VERSION}/SHA256SUMS
 RUN echo "Downloaded release assets:" && ls
 
 RUN echo "Verifying PGP signatures"
@@ -41,11 +36,11 @@ RUN echo "PGP signature verification passed"
 
 RUN echo "Verifying checksums"
 RUN [ -f SHA256SUMS ] && cp SHA256SUMS /sha256sums || cp SHA256SUMS.asc /sha256sums
-RUN grep "bitcoin-${VERSION}.knots$(cat /knots_date).tar.gz" /sha256sums | sha256sum -c
+RUN grep "bitcoin-${VERSION}.tar.gz" /sha256sums | sha256sum -c
 RUN echo "Checksums verified ok"
 
 RUN echo "Extracting release assets"
-RUN tar xzf bitcoin-${VERSION}.knots$(cat /knots_date).tar.gz --strip-components=1
+RUN tar xzf bitcoin-${VERSION}.tar.gz --strip-components=1
 
 RUN echo "Build from source"
 ENV BITCOIN_GENBUILD_NO_GIT=1
