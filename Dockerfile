@@ -32,7 +32,11 @@ RUN set -ex; \
 RUN set -ex; \
   wget https://bitcoinknots.org/files/${APP_VERSION%%.*}.x/${APP_VERSION}/bitcoin-${APP_VERSION}.tar.gz \
   https://bitcoinknots.org/files/${APP_VERSION%%.*}.x/${APP_VERSION}/SHA256SUMS.asc \
-  https://bitcoinknots.org/files/${APP_VERSION%%.*}.x/${APP_VERSION}/SHA256SUMS;
+  https://bitcoinknots.org/files/${APP_VERSION%%.*}.x/${APP_VERSION}/SHA256SUMS \
+  || \
+  wget https://github.com/bitcoinknots/bitcoin/releases/download/v${APP_VERSION}/bitcoin-${APP_VERSION}.tar.gz \
+  https://github.com/bitcoinknots/bitcoin/releases/download/v${APP_VERSION}/SHA256SUMS.asc \
+  https://github.com/bitcoinknots/bitcoin/releases/download/v${APP_VERSION}/SHA256SUMS;
 
 RUN set -ex; \
   curl -s "https://api.github.com/repos/bitcoinknots/guix.sigs/contents/builder-keys" | jq -r '.[].download_url' | while read url; do curl -s "$url" | gpg --import; done; \
