@@ -1,5 +1,7 @@
 # docker-bitcoind-knots
 
+> ⚠️ **This repository has been archived.** For the latest container images, please visit <https://github.com/vegops/containers>.
+
 > Run a full Bitcoin node with one command
 
 A Docker configuration with sane defaults for running a full Bitcoin node.
